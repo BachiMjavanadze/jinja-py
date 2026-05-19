@@ -1,0 +1,7 @@
+{
+  "scopeName": "jinja-html-injection",
+  "injectionSelector": "L:text.html.basic, L:text.html.derivative",
+  "patterns": [
+    { "include": "source.jinja" }
+  ]
+}

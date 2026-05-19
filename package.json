@@ -1,0 +1,95 @@
+{
+    "name": "jinja-py",
+    "displayName": "Jinja Py",
+    "description": "Jinja2 syntax highlighting, formatting, folding, and breakpoint support for HTML templates",
+    "version": "1.0.0",
+    "publisher": "BachiMjavanadze",
+    "author": "Bachi Mjavanadze",
+    "engines": {
+        "vscode": "^1.120.0"
+    },
+    "activationEvents": [
+        "onLanguage:html",
+        "onLanguage:jinja-html",
+        "onLanguage:jinja"
+    ],
+    "license": "MIT",
+    "icon": "icon.webp",
+    "categories": [
+        "Programming Languages",
+        "Formatters"
+    ],
+    "keywords": [
+        "jinja",
+        "jinja2",
+        "flask",
+        "fastapi",
+        "html"
+    ],
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/BachiMjavanadze/jinja-py.git"
+    },
+    "main": "./src/extension.js",
+    "contributes": {
+        "languages": [
+            {
+                "id": "jinja-html",
+                "aliases": [
+                    "Jinja HTML",
+                    "jinja-html"
+                ],
+                "extensions": [
+                    ".jinja",
+                    ".jinja2",
+                    ".j2",
+                    ".html.j2"
+                ],
+                "configuration": "./language-configuration.json"
+            },
+            {
+                "id": "jinja",
+                "aliases": [
+                    "Jinja Raw",
+                    "jinja-raw"
+                ],
+                "extensions": [],
+                "configuration": "./language-configuration.json"
+            }
+        ],
+        "htmlLanguageParticipants": [
+            {
+                "languageId": "jinja-html",
+                "autoInsert": true
+            }
+        ],
+        "grammars": [
+            {
+                "language": "jinja-html",
+                "scopeName": "text.html.jinja",
+                "path": "./syntaxes/jinja-html.tmLanguage.json"
+            },
+            {
+                "language": "jinja",
+                "scopeName": "source.jinja",
+                "path": "./syntaxes/jinja.tmLanguage.json"
+            },
+            {
+                "scopeName": "jinja-html-injection",
+                "path": "./syntaxes/jinja-html-injection.tmLanguage.json",
+                "injectTo": [
+                    "text.html.basic",
+                    "text.html.derivative"
+                ]
+            }
+        ],
+        "breakpoints": [
+            {
+                "language": "jinja-html"
+            }
+        ]
+    },
+    "dependencies": {
+        "js-beautify": "^1.15.4"
+    }
+}
