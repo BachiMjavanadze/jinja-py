@@ -1,6 +1,165 @@
 const vscode = require('vscode');
 const beautify = require('js-beautify').html;
 
+const JINJA_STATEMENT_OPENERS = [
+    'if', 'for', 'block', 'extends', 'include', 'import', 'from',
+    'macro', 'call', 'filter', 'set', 'with', 'raw', 'autoescape', 'do', 'pluralize'
+];
+
+const JINJA_STATEMENT_ENDERS = [
+    'endif', 'endfor', 'endblock', 'endmacro', 'endcall',
+    'endfilter', 'endset', 'endwith', 'endraw', 'endautoescape'
+];
+
+const JINJA_STATEMENT_MIDDLE = ['elif', 'else', 'break', 'continue'];
+const JINJA_OPERATORS = ['and', 'or', 'not', 'in', 'is'];
+const JINJA_LITERALS = ['true', 'false', 'none', 'True', 'False', 'None'];
+
+const JINJA_MODIFIERS = [
+    'as', 'scoped', 'required', 'recursive',
+    'without', 'context', 'ignore', 'missing'
+];
+
+const JINJA_IMPORT_MODIFIERS = ['with', 'without', 'context', 'ignore', 'missing', 'as', 'import'];
+const JINJA_FILTERS = [
+    'abs', 'attr', 'batch', 'capitalize', 'center', 'count', 'd', 'default',
+    'dictsort', 'e', 'escape', 'filesizeformat', 'first', 'float', 'forceescape',
+    'format', 'groupby', 'indent', 'int', 'items', 'join', 'last', 'length',
+    'list', 'lower', 'map', 'max', 'min', 'pprint', 'random', 'reject',
+    'rejectattr', 'replace', 'reverse', 'round', 'safe', 'select', 'selectattr',
+    'slice', 'sort', 'string', 'striptags', 'sum', 'title', 'tojson', 'trim',
+    'truncate', 'unique', 'upper', 'urlencode', 'urlize', 'wordcount', 'wordwrap',
+    'xmlattr'
+];
+
+const JINJA_TESTS = [
+    'boolean', 'callable', 'defined', 'divisibleby', 'eq', 'escaped', 'even',
+    'false', 'filter', 'float', 'ge', 'greaterthan', 'gt', 'in', 'integer',
+    'iterable', 'le', 'lessthan', 'lower', 'lt', 'mapping', 'ne', 'none',
+    'number', 'odd', 'sameas', 'sequence', 'string', 'test', 'true',
+    'undefined', 'upper'
+];
+
+const JINJA_GLOBALS = [
+    'range', 'dict', 'lipsum', 'cycler', 'joiner', 'namespace',
+    'loop', 'super', 'self', 'varargs', 'kwargs'
+];
+
+function detectJinjaContext(document, position) {
+    const offset = document.offsetAt(position);
+    const WINDOW = 10000;
+    const startPos = document.positionAt(Math.max(0, offset - WINDOW));
+    const text = document.getText(new vscode.Range(startPos, position));
+
+    for (let i = text.length - 1; i > 0; i--) {
+        const c = text[i];
+        const prev = text[i - 1];
+
+        if (c === '}' && (prev === '%' || prev === '}' || prev === '#')) {
+            return { kind: 'text', after: '' };
+        }
+        if (prev === '{' && (c === '%' || c === '{' || c === '#')) {
+            const after = text.substring(i + 1);
+            if (c === '%') return { kind: 'statement', after };
+            if (c === '{') return { kind: 'expression', after };
+            if (c === '#') return { kind: 'comment', after };
+        }
+    }
+    return { kind: 'text', after: '' };
+}
+
+function buildItems(names, detail) {
+    return names.map(name => {
+        const item = new vscode.CompletionItem(name, vscode.CompletionItemKind.Keyword);
+        item.detail = detail;
+        return item;
+    });
+}
+
+function statementCompletions(after) {
+    const norm = after.replace(/^\s*-?\s*/, '');
+    const words = norm.split(/\s+/).filter(Boolean);
+    const endsWithSpace = /\s$/.test(after);
+    const onFirstToken = words.length === 0 || (words.length === 1 && !endsWithSpace);
+
+    if (onFirstToken) {
+        return [
+            ...buildItems(JINJA_STATEMENT_OPENERS, 'Jinja statement'),
+            ...buildItems(JINJA_STATEMENT_ENDERS, 'Jinja end block'),
+            ...buildItems(JINJA_STATEMENT_MIDDLE, 'Jinja branch'),
+        ];
+    }
+
+    const first = words[0];
+
+    if (first === 'for') {
+        return [
+            ...buildItems(['in'], 'Jinja keyword'),
+            ...buildItems(JINJA_OPERATORS, 'Jinja operator'),
+            ...buildItems(JINJA_LITERALS, 'Jinja literal'),
+        ];
+    }
+
+    if (first === 'if' || first === 'elif') {
+        return [
+            ...buildItems(JINJA_OPERATORS, 'Jinja operator'),
+            ...buildItems(JINJA_LITERALS, 'Jinja literal'),
+        ];
+    }
+
+    if (first === 'extends' || first === 'include' || first === 'import' || first === 'from') {
+        return buildItems(JINJA_IMPORT_MODIFIERS, 'Jinja modifier');
+    }
+
+    if (first === 'block' || first === 'macro' || first === 'filter') {
+        return buildItems(JINJA_MODIFIERS, 'Jinja modifier');
+    }
+
+    if (first === 'autoescape') {
+        return buildItems(['true', 'false'], 'Jinja literal');
+    }
+
+    if (first === 'set' || first === 'with') {
+        return [
+            ...buildItems(JINJA_OPERATORS, 'Jinja operator'),
+            ...buildItems(JINJA_LITERALS, 'Jinja literal'),
+        ];
+    }
+
+    return [
+        ...buildItems(JINJA_OPERATORS, 'Jinja operator'),
+        ...buildItems(JINJA_LITERALS, 'Jinja literal'),
+    ];
+}
+
+function expressionCompletions(after) {
+    if (/\.\s*\w*$/.test(after)) {
+        return [];
+    }
+
+    if (/\|\s*\w*$/.test(after)) {
+        return buildItems(JINJA_FILTERS, 'Jinja filter');
+    }
+
+    if (/\bis(?:\s+not)?\s+\w*$/.test(after)) {
+        return buildItems(JINJA_TESTS, 'Jinja test');
+    }
+
+    return [
+        ...buildItems(JINJA_OPERATORS, 'Jinja operator'),
+        ...buildItems(JINJA_LITERALS, 'Jinja literal'),
+        ...buildItems(JINJA_GLOBALS, 'Jinja global'),
+    ];
+}
+
+function buildJinjaCompletions(document, position) {
+    const ctx = detectJinjaContext(document, position);
+    if (ctx.kind === 'text' || ctx.kind === 'comment') return [];
+    if (ctx.kind === 'statement') return statementCompletions(ctx.after);
+    if (ctx.kind === 'expression') return expressionCompletions(ctx.after);
+    return [];
+}
+
 async function activate(context) {
     const htmlExtension = vscode.extensions.getExtension('vscode.html-language-features');
     if (htmlExtension) await htmlExtension.activate();
@@ -60,13 +219,22 @@ async function activate(context) {
         }
     };
 
+    const completionProvider = {
+        provideCompletionItems(document, position) {
+            return buildJinjaCompletions(document, position);
+        }
+    };
+
     context.subscriptions.push(
         vscode.languages.registerDocumentFormattingEditProvider('html', formatter),
         vscode.languages.registerDocumentFormattingEditProvider('jinja-html', formatter),
         vscode.languages.registerDocumentFormattingEditProvider('jinja', formatter),
         vscode.languages.registerFoldingRangeProvider('html', foldingProvider),
         vscode.languages.registerFoldingRangeProvider('jinja-html', foldingProvider),
-        vscode.languages.registerFoldingRangeProvider('jinja', foldingProvider)
+        vscode.languages.registerFoldingRangeProvider('jinja', foldingProvider),
+        vscode.languages.registerCompletionItemProvider('html', completionProvider, ' ', '|'),
+        vscode.languages.registerCompletionItemProvider('jinja-html', completionProvider, ' ', '|'),
+        vscode.languages.registerCompletionItemProvider('jinja', completionProvider, ' ', '|')
     );
 
     const htmlEditorConfig = vscode.workspace.getConfiguration('editor', { languageId: 'html' });
