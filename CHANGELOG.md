@@ -1,5 +1,9 @@
 # Change Log
 
+## [1.1.1] - 2026-05-25
+
+- Fixed formatter incorrectly increasing indentation after single-line Jinja blocks.
+
 ## [1.1.0] - 2026-05-22
 
 - Added context-aware Jinja autocomplete for keywords, filters, tests, and built-in globals inside `{% ... %}` and `{{ ... }}`.
