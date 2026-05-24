@@ -1,7 +1,9 @@
 {
   "scopeName": "jinja-html-injection",
-  "injectionSelector": "L:text.html.basic, L:text.html.derivative",
+  "injectionSelector": "L:text.html.basic - comment, L:text.html.derivative - comment",
   "patterns": [
-    { "include": "source.jinja" }
+    {
+      "include": "source.jinja"
+    }
   ]
 }

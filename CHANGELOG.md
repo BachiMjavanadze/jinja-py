@@ -1,8 +1,9 @@
 # Change Log
 
-## [1.1.1] - 2026-05-25
+## [1.1.2] - 2026-05-25
 
 - Fixed formatter incorrectly increasing indentation after single-line Jinja blocks.
+- Fixed Jinja syntax inside HTML comments (`<!-- ... -->`) being highlighted as code instead of comment text.
 
 ## [1.1.0] - 2026-05-22
 
