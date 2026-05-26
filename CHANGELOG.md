@@ -1,5 +1,9 @@
 # Change Log
 
+## [1.1.3] - 2026-05-27
+
+- Fixed indentation issue of <p> elements
+
 ## [1.1.2] - 2026-05-25
 
 - Fixed formatter incorrectly increasing indentation after single-line Jinja blocks.
