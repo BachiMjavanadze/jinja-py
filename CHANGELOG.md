@@ -2,7 +2,7 @@
 
 ## [1.1.3] - 2026-05-27
 
-- Fixed indentation issue of <p> elements
+- Fixed indentation issue of the Paragraph Tag
 
 ## [1.1.2] - 2026-05-25
 
