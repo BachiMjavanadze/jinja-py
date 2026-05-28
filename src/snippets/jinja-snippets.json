@@ -1,0 +1,346 @@
+{
+    "jinja Child Template": {
+        "prefix": "j.child",
+        "body": [
+            "{% extends \"base.html\" %}",
+            "{% block title %}Index{% endblock %}",
+            "{% block head %}",
+            "    {{ super() }}",
+            "    <style type=\"text/css\">",
+            "        .important { color: #336699; }",
+            "    </style>",
+            "{% endblock %}",
+            "{% block content %}",
+            "    <h1>Index</h1>",
+            "    <p class=\"important\">",
+            "        Welcome to my awesome homepage.",
+            "    </p>",
+            "{% endblock %}"
+        ],
+        "description": "Jinja Child Template"
+    },
+    "jinja Block Nesting and Scope": {
+        "prefix": "j.block-nesting",
+        "body": [
+            "{% for item in seq %}",
+            "    <li>{% block loop_item scoped %}{{ item }}{% endblock %}</li>",
+            "{% endfor %}"
+        ],
+        "description": "Jinja Block Nesting and Scope"
+    },
+    "jinja Statements": {
+        "prefix": "j.stat",
+        "body": [
+            "{% ${1:statement} %}",
+            "\t$2",
+            "{% end${1:statement} %}$0"
+        ],
+        "description": "statements {% ... %}"
+    },
+    "jinja Comments": {
+        "prefix": "j.comm",
+        "body": [
+            "{# ${1:comments} #}$0"
+        ],
+        "description": "comments {# ... #}"
+    },
+    "jinja block": {
+        "prefix": "j.block",
+        "body": [
+            "{% block ${1:name} %}",
+            "\t$2",
+            "{% endblock %}$0"
+        ],
+        "description": "define blocks for templates"
+    },
+    "jinja if": {
+        "prefix": "j.if",
+        "body": [
+            "{% if ${1:condition} %}",
+            "\t$2",
+            "{% endif %}$0"
+        ],
+        "description": "if statement"
+    },
+    "jinja if-else": {
+        "prefix": "j.if-else",
+        "body": [
+            "{% if ${1:condition} %}",
+            "\t$2",
+            "{% else %}",
+            "\t$3",
+            "{% endif %}$0"
+        ],
+        "description": "if and else statement"
+    },
+    "jinja if-elif": {
+        "prefix": "j.if-elif",
+        "body": [
+            "{% if ${1:condition} %}",
+            "\t$2",
+            "{% elif ${3:condition2} %}",
+            "\t$4",
+            "{% endif %}$0"
+        ],
+        "description": "if and elif statement"
+    },
+    "jinja if-elif-else": {
+        "prefix": "j.if-elif-else",
+        "body": [
+            "{% if ${1:condition} %}",
+            "\t$2",
+            "{% elif ${3:condition2} %}",
+            "\t$4",
+            "{% else %}",
+            "\t$5",
+            "{% endif %}$0"
+        ],
+        "description": "if, elif and else statement"
+    },
+    "jinja for": {
+        "prefix": "j.for",
+        "body": [
+            "{% for ${1:item} in ${2:iterable} %}",
+            "\t$3",
+            "{% endfor %}$0"
+        ],
+        "description": "for statements"
+    },
+    "jinja for-else": {
+        "prefix": "j.for-else",
+        "body": [
+            "{% for ${1:item} in ${2:iterable} %}",
+            "\t$3",
+            "{% else %}",
+            "\t$4",
+            "{% endfor %}$0"
+        ],
+        "description": "else break statement in a for loop"
+    },
+    "jinja with": {
+        "prefix": "j.with",
+        "body": [
+            "{% with ${1:item}  %}",
+            "\t$2",
+            "{% endwith %}$0"
+        ],
+        "description": "with statements"
+    },
+    "jinja macro": {
+        "prefix": "j.macro",
+        "body": [
+            "{% macro ${1:name}(${2:args}) %}",
+            "\t$3",
+            "{% endmacro %}$0"
+        ],
+        "description": "define macro | function"
+    },
+    "jinja call": {
+        "prefix": "j.call",
+        "body": [
+            "{% call ${1:macroname}(${2:args}) %}",
+            "\t$3",
+            "{% endcall %}$0"
+        ],
+        "description": "call functionality for macro | function"
+    },
+    "jinja filter": {
+        "prefix": "j.filter",
+        "body": [
+            "{% filter ${1:filtername} %}",
+            "\t$2",
+            "{% endfilter %}$0"
+        ],
+        "description": "apply regular jinja filters"
+    },
+    "jinja include": {
+        "prefix": "j.incl",
+        "body": [
+            "{% include '${1:filename}' ${2| ,ignore missing,with context,ignore missing with context|} %}$0"
+        ],
+        "description": "include a template into the current namespace. Tabstops Choice: ignore missing, with context, ignore missing with context"
+    },
+    "jinja extends": {
+        "prefix": "j.extends",
+        "body": [
+            "{% extends '${1:filename}' %}$0"
+        ],
+        "description": "template inheritance"
+    },
+    "jinja import": {
+        "prefix": "j.imp",
+        "body": [
+            "{% import '${1:filename}' ${2| , with context|} %}$0"
+        ],
+        "description": "import module into current namespace. Tabstops Choice: with context"
+    },
+    "jinja from import": {
+        "prefix": "j.imp-from",
+        "body": [
+            "{% from '${1:template}' import '${2:module}' ${3| , with context|} %}$0"
+        ],
+        "description": "import specific names from a template into the current namespace. Tabstops Choice: with context"
+    },
+    "jinja set": {
+        "prefix": "j.set",
+        "body": [
+            "{% set ${1:variable} = ${2:value} %}$0"
+        ],
+        "description": "assign value to variable"
+    },
+    "jinja set multiple": {
+        "prefix": "j.setmulti",
+        "body": [
+            "{% set ${1:key}, ${2:value} = ${3:callable()} %}$0"
+        ],
+        "description": "assign key, value returned by a callable"
+    },
+    "jinja set block": {
+        "prefix": "j.setblock",
+        "body": [
+            "{% set ${1:variable} %}",
+            "\t${2:contents}",
+            "{% endset %}$0"
+        ],
+        "description": "block assignments: capture the contents of block into variable"
+    },
+    "jinja random": {
+        "prefix": "j.random",
+        "body": [
+            "{{ range(${1:0}, ${2:10000}, ${3:1}) | random }}$0"
+        ],
+        "description": "generate random item from a range"
+    },
+    "jinja block parent": {
+        "prefix": "j.block-parent",
+        "body": [
+            "{% block ${1:name} %}",
+            "\t{{ parent() }}",
+            "{% endblock %}$0"
+        ],
+        "description": "call the parent block"
+    },
+    "jinja block include": {
+        "prefix": "j.block-include",
+        "body": [
+            "{% include '${1:filename}' %}$0"
+        ],
+        "description": "include a block from another template"
+    },
+    "jinja block extends": {
+        "prefix": "j.block-extends",
+        "body": [
+            "{% extends '${1:filename}' %}$0"
+        ],
+        "description": "extend a block from another template"
+    },
+    "jinja block import": {
+        "prefix": "j.block-import",
+        "body": [
+            "{% import '${1:filename}' %}$0"
+        ],
+        "description": "import a block from another template"
+    },
+    "jinja block from import": {
+        "prefix": "j.block-from-import",
+        "body": [
+            "{% from '${1:template}' import '${2:module}' %}$0"
+        ],
+        "description": "import a block from another template"
+    },
+    "jinja block set": {
+        "prefix": "j.block-set",
+        "body": [
+            "{% set ${1:variable} = ${2:value} %}$0"
+        ],
+        "description": "assign value to variable"
+    },
+    "jinja block set block": {
+        "prefix": "j.block-set-block",
+        "body": [
+            "{% set ${1:variable} %}",
+            "\t${2:contents}",
+            "{% endset %}$0"
+        ],
+        "description": "block assignments: capture the contents of block into variable"
+    },
+    "jinja block with": {
+        "prefix": "j.block-with",
+        "body": [
+            "{% with ${1:item}  %}",
+            "\t$2",
+            "{% endwith %}$0"
+        ],
+        "description": "with statements"
+    },
+    "jinja block call": {
+        "prefix": "j.block-call",
+        "body": [
+            "{% call ${1:macroname}(${2:args}) %}",
+            "\t$3",
+            "{% endcall %}$0"
+        ],
+        "description": "call functionality for macro | function"
+    },
+    "jinja block filter": {
+        "prefix": "j.block-filter",
+        "body": [
+            "{% filter ${1:filtername} %}",
+            "\t$2",
+            "{% endfilter %}$0"
+        ],
+        "description": "apply regular jinja filters"
+    },
+    "jinja block if": {
+        "prefix": "j.block-if",
+        "body": [
+            "{% if ${1:condition} %}",
+            "\t$2",
+            "{% endif %}$0"
+        ],
+        "description": "if statement"
+    },
+    "jinja block if-else": {
+        "prefix": "j.block-if-else",
+        "body": [
+            "{% if ${1:condition} %}",
+            "\t$2",
+            "{% else %}",
+            "\t$3",
+            "{% endif %}$0"
+        ],
+        "description": "if and else statement"
+    },
+    "jinja raw": {
+        "prefix": "j.raw",
+        "body": [
+            "{% raw %}",
+            "\t$1",
+            "{% endraw %}$0"
+        ],
+        "description": "Include raw content without processing"
+    },
+    "jinja include-only": {
+        "prefix": "j.incl-only",
+        "body": [
+            "{% include '${1:filename}' with ${2:variable} only %}$0"
+        ],
+        "description": "Include a template with specified variables only"
+    },
+    "jinja autoescape": {
+        "prefix": "j.autoescape",
+        "body": [
+            "{% autoescape ${1:true|false} %}",
+            "\t$2",
+            "{% endautoescape %}$0"
+        ],
+        "description": "Enable or disable autoescaping for a block"
+    },
+    "jinja cycle": {
+        "prefix": "j.cycle",
+        "body": [
+            "{% cycle ${1:value1}, ${2:value2} as ${3:cycleName} %}$0"
+        ],
+        "description": "Cycle through values in a block"
+    }
+}

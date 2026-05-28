@@ -9,6 +9,7 @@ Forked from [Dragon Jinja](https://marketplace.visualstudio.com/items?itemName=h
 * **Code Formatting:** Formats HTML using `js-beautify` and applies custom indentation for `Jinja` logic blocks (`if`, `for`, `block`, `macro`, `filter`, `with`, `raw`).
 * **Code Folding:** Accurately folds multiline `Jinja` block structures.
 * **Autocomplete:** Context-aware completion for Jinja keywords, filters, tests, built-in globals, and framework-specific names inside `{% ... %}` and `{{ ... }}`.
+* **Snippets:** Ready-made snippets for common Jinja blocks and statements.
 * **Debugging:** Supports breakpoints directly in template files.
 
 ## Supported Languages and Extensions
@@ -65,6 +66,12 @@ So the selected framework must match your project. If you set `framework` to `dj
 Callable names (`url_for`, `csrf_token`, `gettext`, `static`, `url`, ...) insert with parentheses and the cursor placed inside.
 
 Attribute completions are offered only for the framework's known objects (e.g. `request.args.`, `current_user.`). User-defined variables and the results of function calls receive no attribute suggestions.
+
+## Snippets
+
+The extension ships snippets for common Jinja blocks and statements (e.g. `j.block-nesting`, `j.stat`), available in `html`, `jinja-html`, and `jinja` files. Type a prefix and accept the suggestion to expand it.
+
+Some snippets are taken from [Jinja Snippets Flask](https://marketplace.visualstudio.com/items?itemName=WaseemAkram.jinja-snippets-flask).
 
 ## Breakpoints Support
 

@@ -3,6 +3,7 @@
 ## [1.2.1] - 2026-05-28
 
 - Filters after `|` inside `{{ ... }}` are now colored like functions.
+- Added snippets for common Jinja blocks and statements in `html`, `jinja-html`, and `jinja` files.
 
 ## [1.2.0] - 2026-05-28
 

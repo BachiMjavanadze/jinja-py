@@ -2,7 +2,7 @@
     "name": "jinja-py",
     "displayName": "Jinja Py",
     "description": "Jinja2 syntax highlighting, formatting, folding, autocomplete and breakpoint support for HTML templates",
-    "version": "1.2.1",
+    "version": "1.3.0",
     "publisher": "BachiMjavanadze",
     "author": "Bachi Mjavanadze",
     "engines": {
@@ -119,6 +119,20 @@
         "breakpoints": [
             {
                 "language": "jinja-html"
+            }
+        ],
+        "snippets": [
+            {
+                "language": "html",
+                "path": "./src/snippets/jinja-snippets.json"
+            },
+            {
+                "language": "jinja-html",
+                "path": "./src/snippets/jinja-snippets.json"
+            },
+            {
+                "language": "jinja",
+                "path": "./src/snippets/jinja-snippets.json"
             }
         ]
     },
