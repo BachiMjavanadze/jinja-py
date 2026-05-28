@@ -120,20 +120,6 @@
             {
                 "language": "jinja-html"
             }
-        ],
-        "snippets": [
-            {
-                "language": "html",
-                "path": "./src/snippets/jinja-snippets.json"
-            },
-            {
-                "language": "jinja-html",
-                "path": "./src/snippets/jinja-snippets.json"
-            },
-            {
-                "language": "jinja",
-                "path": "./src/snippets/jinja-snippets.json"
-            }
         ]
     },
     "dependencies": {

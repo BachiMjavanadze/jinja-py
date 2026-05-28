@@ -69,9 +69,9 @@ Attribute completions are offered only for the framework's known objects (e.g. `
 
 ## Snippets
 
-The extension ships snippets for common Jinja blocks and statements (e.g. `j.block-nesting`, `j.stat`), available in `html`, `jinja-html`, and `jinja` files. Type a prefix and accept the suggestion to expand it.
+The extension ships snippets for common Jinja blocks and statements, namespaced under the `j.` prefix (e.g. `j.block-nesting`, `j.stat`). Type `j.` in `html`, `jinja-html`, or `jinja` files to see the list, then keep typing to filter.
 
-Some snippets are taken from [Jinja Snippets Flask](https://marketplace.visualstudio.com/items?itemName=WaseemAkram.jinja-snippets-flask).
+Some snippets are taken from [Jinja Snippets Flask](https://marketplace.visualstudio.com/items?itemName=WaseemAkram.jinja-snippets-flask), but the trigger works differently: the `j.` prefix is required, so the list only appears after you type the dot, not on a bare letter.
 
 ## Breakpoints Support
 

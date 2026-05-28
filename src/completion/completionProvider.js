@@ -1,6 +1,7 @@
 // src/completion/completionProvider.js
 const { detectJinjaContext } = require('./context');
 const { buildItems, buildRichItems } = require('./items');
+const { snippetCompletions } = require('./snippets');
 const registry = require('./frameworks/registry');
 const {
     JINJA_STATEMENT_OPENERS,
@@ -110,10 +111,12 @@ function expressionCompletions(after) {
 
 function buildJinjaCompletions(document, position) {
     const ctx = detectJinjaContext(document, position);
-    if (ctx.kind === 'text' || ctx.kind === 'comment') return [];
+    if (ctx.kind === 'comment') return [];
     if (ctx.kind === 'statement') return statementCompletions(ctx.after);
     if (ctx.kind === 'expression') return expressionCompletions(ctx.after);
-    return [];
+    // text context: offer "j." namespaced snippets
+    const linePrefix = document.lineAt(position.line).text.slice(0, position.character);
+    return snippetCompletions(linePrefix, position);
 }
 
 const completionProvider = {

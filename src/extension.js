@@ -3,10 +3,13 @@ const vscode = require('vscode');
 const { formatter } = require('./formatting/formatterProvider');
 const { foldingProvider } = require('./folding/foldingProvider');
 const { completionProvider } = require('./completion/completionProvider');
+const snippets = require('./completion/snippets');
 
 async function activate(context) {
     const htmlExtension = vscode.extensions.getExtension('vscode.html-language-features');
     if (htmlExtension) await htmlExtension.activate();
+
+    snippets.init(context.extensionPath);
 
     context.subscriptions.push(
         vscode.languages.registerDocumentFormattingEditProvider('html', formatter),
