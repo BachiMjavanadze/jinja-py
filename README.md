@@ -8,7 +8,7 @@ Forked from [Dragon Jinja](https://marketplace.visualstudio.com/items?itemName=h
 * **Syntax Highlighting:** Full support for Jinja and Jinja-HTML files, including injection into standard HTML.
 * **Code Formatting:** Formats HTML using `js-beautify` and applies custom indentation for `Jinja` logic blocks (`if`, `for`, `block`, `macro`, `filter`, `with`, `raw`).
 * **Code Folding:** Accurately folds multiline `Jinja` block structures.
-* **Autocomplete:** Context-aware completion for Jinja keywords, filters, tests, and built-in globals inside `{% ... %}` and `{{ ... }}`.
+* **Autocomplete:** Context-aware completion for Jinja keywords, filters, tests, built-in globals, and framework-specific names inside `{% ... %}` and `{{ ... }}`.
 * **Debugging:** Supports breakpoints directly in template files.
 
 ## Supported Languages and Extensions
@@ -38,9 +38,33 @@ Suggestions fire only inside Jinja delimiters and adapt to the cursor position:
 * Context-aware tokens: `in` after `{% for x `, import modifiers after `{% include '...' `, operators and literals after `{% if `.
 * Built-in filters after `|`, built-in tests after `is` and `is not`.
 * Built-in Jinja globals (`range`, `dict`, `lipsum`, `cycler`, `joiner`, `namespace`) and special variables (`loop`, `super`, `self`, `varargs`, `kwargs`).
-* No suggestions inside `{# ... #}` comments or after `.` (attribute access).
+* Expression atoms (globals, framework names, attribute chains) fire both inside `{{ ... }}` and in expression positions inside `{% ... %}` — after `if`, `elif`, `for ... in`, `set ... =`, and `with ... =`.
+* No suggestions inside `{# ... #}` comments or after `.` on user-defined names.
 
-Framework-specific globals such as `url_for` or `request` are intentionally excluded; those belong to a framework-specific extension.
+### Framework-specific completions
+
+The `properties.framework` setting controls which web framework's built-in template names are suggested:
+
+```json
+"jinjaPy": {
+    "framework": "flask"
+}
+```
+
+| Value | Suggests |
+|---|---|
+| `flask` (default) | Flask, Flask-Login, Flask-WTF, Flask-Babel globals, `request`/`session`/`g`/`config`/`current_user` attributes, and Babel filters |
+| `django` | Django Jinja2-backend globals, `request`/`user` attributes, and default context-processor names |
+| `fastapi` | Starlette `url_for`, `request`, and `request` attribute chains |
+| `none` | Pure Jinja built-ins only |
+
+This is **not** type-aware autocomplete like in a statically typed language. The extension does not read your Python code, does not know your actual framework, and does not validate anything. It simply offers a fixed list of names that the selected framework is known to inject. The setting only chooses which list to show.
+
+So the selected framework must match your project. If you set `framework` to `django` inside a Flask project, you will get Django globals, attributes, and methods — with no warning — and using them will fail at render time. Picking the wrong framework gives you the wrong names, silently.
+
+Callable names (`url_for`, `csrf_token`, `gettext`, `static`, `url`, ...) insert with parentheses and the cursor placed inside.
+
+Attribute completions are offered only for the framework's known objects (e.g. `request.args.`, `current_user.`). User-defined variables and the results of function calls receive no attribute suggestions.
 
 ## Breakpoints Support
 

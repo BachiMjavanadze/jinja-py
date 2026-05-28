@@ -2,7 +2,7 @@
     "name": "jinja-py",
     "displayName": "Jinja Py",
     "description": "Jinja2 syntax highlighting, formatting, folding, autocomplete and breakpoint support for HTML templates",
-    "version": "1.1.3",
+    "version": "1.2.0",
     "publisher": "BachiMjavanadze",
     "author": "Bachi Mjavanadze",
     "engines": {
@@ -32,6 +32,38 @@
     },
     "main": "./src/extension.js",
     "contributes": {
+        "configuration": {
+            "title": "Jinja Py",
+            "properties": {
+                "jinjaPy": {
+                    "type": "object",
+                    "additionalProperties": false,
+                    "default": {
+                        "framework": "flask"
+                    },
+                    "description": "Jinja Py settings.",
+                    "properties": {
+                        "framework": {
+                            "type": "string",
+                            "enum": [
+                                "flask",
+                                "django",
+                                "fastapi",
+                                "none"
+                            ],
+                            "enumDescriptions": [
+                                "Flask + Flask-Login + Flask-WTF + Flask-Babel globals, objects, and filters",
+                                "Django (Jinja2 backend) globals, request attributes, and default context processors",
+                                "FastAPI / Starlette globals and request attributes",
+                                "Pure Jinja built-ins only; no framework-specific completions"
+                            ],
+                            "default": "flask",
+                            "description": "Which web framework's built-in template names to autocomplete inside Jinja delimiters."
+                        }
+                    }
+                }
+            }
+        },
         "languages": [
             {
                 "id": "jinja-html",

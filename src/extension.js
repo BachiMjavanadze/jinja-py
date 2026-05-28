@@ -15,9 +15,9 @@ async function activate(context) {
         vscode.languages.registerFoldingRangeProvider('html', foldingProvider),
         vscode.languages.registerFoldingRangeProvider('jinja-html', foldingProvider),
         vscode.languages.registerFoldingRangeProvider('jinja', foldingProvider),
-        vscode.languages.registerCompletionItemProvider('html', completionProvider, ' ', '|'),
-        vscode.languages.registerCompletionItemProvider('jinja-html', completionProvider, ' ', '|'),
-        vscode.languages.registerCompletionItemProvider('jinja', completionProvider, ' ', '|')
+        vscode.languages.registerCompletionItemProvider('html', completionProvider, ' ', '|', '.'),
+        vscode.languages.registerCompletionItemProvider('jinja-html', completionProvider, ' ', '|', '.'),
+        vscode.languages.registerCompletionItemProvider('jinja', completionProvider, ' ', '|', '.')
     );
 
     const htmlEditorConfig = vscode.workspace.getConfiguration('editor', { languageId: 'html' });

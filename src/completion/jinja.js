@@ -1,7 +1,7 @@
 // src/completion/jinja.js
 const JINJA_STATEMENT_OPENERS = [
     'if', 'for', 'block', 'extends', 'include', 'import', 'from',
-    'macro', 'call', 'filter', 'set', 'with', 'raw', 'autoescape', 'do', 'pluralize'
+    'macro', 'call', 'filter', 'set', 'with', 'raw', 'autoescape', 'do'
 ];
 
 const JINJA_STATEMENT_ENDERS = [
