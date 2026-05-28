@@ -24,6 +24,7 @@
         "jinja2",
         "flask",
         "fastapi",
+        "django",
         "html"
     ],
     "repository": {
@@ -77,7 +78,7 @@
                     ".j2",
                     ".html.j2"
                 ],
-                "configuration": "./language-configuration.json"
+                "configuration": "./src/syntaxes/language-configuration.json"
             },
             {
                 "id": "jinja",
@@ -86,7 +87,7 @@
                     "jinja-raw"
                 ],
                 "extensions": [],
-                "configuration": "./language-configuration.json"
+                "configuration": "./src/syntaxes/language-configuration.json"
             }
         ],
         "htmlLanguageParticipants": [
@@ -99,16 +100,16 @@
             {
                 "language": "jinja-html",
                 "scopeName": "text.html.jinja",
-                "path": "./syntaxes/jinja-html.tmLanguage.json"
+                "path": "./src/syntaxes/jinja-html.tmLanguage.json"
             },
             {
                 "language": "jinja",
                 "scopeName": "source.jinja",
-                "path": "./syntaxes/jinja.tmLanguage.json"
+                "path": "./src/syntaxes/jinja.tmLanguage.json"
             },
             {
                 "scopeName": "jinja-html-injection",
-                "path": "./syntaxes/jinja-html-injection.tmLanguage.json",
+                "path": "./src/syntaxes/jinja-html-injection.tmLanguage.json",
                 "injectTo": [
                     "text.html.basic",
                     "text.html.derivative"
