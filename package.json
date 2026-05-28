@@ -24,14 +24,19 @@
         "jinja2",
         "flask",
         "fastapi",
-        "django",
         "html"
     ],
     "repository": {
         "type": "git",
         "url": "https://github.com/BachiMjavanadze/jinja-py.git"
     },
-    "main": "./src/extension.js",
+    "main": "./dist/extension.js",
+    "scripts": {
+        "vscode:prepublish": "npm run package",
+        "build": "esbuild ./src/extension.js --bundle --outfile=dist/extension.js --external:vscode --format=cjs --platform=node --target=node20 --sourcemap",
+        "watch": "npm run build -- --watch",
+        "package": "esbuild ./src/extension.js --bundle --outfile=dist/extension.js --external:vscode --format=cjs --platform=node --target=node20 --minify"
+    },
     "contributes": {
         "configuration": {
             "title": "Jinja Py",
@@ -122,7 +127,8 @@
             }
         ]
     },
-    "dependencies": {
+    "devDependencies": {
+        "esbuild": "^0.28.0",
         "js-beautify": "^1.15.4"
     }
 }

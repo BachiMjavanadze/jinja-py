@@ -9,3 +9,6 @@ examples/**
 deploy.md
 .pre-commit-config.yaml
 .prettierignore
+src/**/*.js
+node_modules/**
+**/*.map
