@@ -3,10 +3,12 @@ const vscode = require('vscode');
 const path = require('path');
 const fs = require('fs');
 
-// Snippets are namespaced under "j." and served through a completion provider
-// (not contributes.snippets in package.json) so the "j." prefix is actually required before
-// they appear. VS Code never triggers contributed snippets after a trigger
-// character, and fuzzy-matches a bare "j", so the static route can't do this.
+/* 
+Snippets are namespaced under "j." and served through a completion provider
+(not contributes.snippets in package.json) so the "j." prefix is actually required before
+they appear. VS Code never triggers contributed snippets after a trigger
+character, and fuzzy-matches a bare "j", so the static route can't do this.
+*/
 const NAMESPACE = 'j.';
 const TRIGGER_RE = /(?:^|[^\w.])(j\.[\w.-]*)$/;
 

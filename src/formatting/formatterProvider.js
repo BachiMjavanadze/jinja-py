@@ -3,6 +3,7 @@ const vscode = require('vscode');
 const beautify = require('js-beautify').html;
 const { protectParagraphTags, restoreParagraphTags } = require('./paragraph-fix');
 const { applyJinjaIndent } = require('./jinja-indent');
+const { normalizeJinjaWhitespace } = require('./jinja-whitespace');
 
 const formatter = {
     provideDocumentFormattingEdits(document, options) {
@@ -28,7 +29,8 @@ const formatter = {
         });
 
         const restored = restoreParagraphTags(htmlFormatted);
-        const formatted = applyJinjaIndent(restored, options.tabSize, options.insertSpaces, document.eol);
+        const indented = applyJinjaIndent(restored, options.tabSize, options.insertSpaces, document.eol);
+        const formatted = normalizeJinjaWhitespace(indented);
         const text = sourceText;
 
         return [vscode.TextEdit.replace(

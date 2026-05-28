@@ -1,9 +1,13 @@
 # Change Log
 
+## [1.3.0] - 2026-05-28
+
+- Formatter now normalizes whitespace inside Jinja delimiters: exactly one space after `{{` / `{%` / `{#` and before `}}` / `%}` / `#}`, preserving `-` trim markers and the literal content of `{% raw %}` blocks.
+- Added snippets for common Jinja blocks and statements, namespaced under the `j.` prefix, in `html`, `jinja-html`, and `jinja` files.
+
 ## [1.2.1] - 2026-05-28
 
 - Filters after `|` inside `{{ ... }}` are now colored like functions.
-- Added snippets for common Jinja blocks and statements in `html`, `jinja-html`, and `jinja` files.
 
 ## [1.2.0] - 2026-05-28
 
