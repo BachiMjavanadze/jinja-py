@@ -1,5 +1,9 @@
 # Change Log
 
+## [1.2.1] - 2026-05-28
+
+- Filters after `|` inside `{{ ... }}` are now colored like functions.
+
 ## [1.2.0] - 2026-05-28
 
 - Added framework-specific autocomplete for built-in template globals, request attributes, and filters, controlled by the new `jinjaPy.framework` setting (`flask` / `django` / `fastapi` / `none`, default `flask`).

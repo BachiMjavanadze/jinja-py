@@ -1,218 +1,224 @@
 {
-  "name": "jinja-html",
-  "scopeName": "text.html.jinja",
-  "comment": "Jinja HTML Templates",
-  "firstLineMatch": "^{% extends [\"'][^\"']+[\"'] %}",
-  "patterns": [
-    {
-      "include": "source.jinja"
-    },
-    {
-      "begin": "(</?)((?i:address|article|blockquote|body|dd|div|dl|dt|fieldset|figcaption|figure|footer|form|frame|frameset|h1|h2|h3|h4|h5|h6|head|header|iframe|main|nav|noframes|object|ol|p|ul|applet|center|dir|hr|menu|pre)\\b)",
-      "end": "(>)",
-      "name": "meta.tag.block.any.html",
-      "patterns": [
+    "name": "jinja-html",
+    "scopeName": "text.html.jinja",
+    "comment": "Jinja HTML Templates",
+    "firstLineMatch": "^{% extends [\"'][^\"']+[\"'] %}",
+    "patterns": [
         {
-          "include": "#tag-stuff"
-        }
-      ],
-      "beginCaptures": {
-        "1": {
-          "name": "punctuation.definition.tag.begin.html"
-        },
-        "2": {
-          "name": "entity.name.tag.block.any.html"
-        }
-      },
-      "endCaptures": {
-        "1": {
-          "name": "punctuation.definition.tag.end.html"
-        }
-      }
-    },
-    {
-      "begin": "(</?)((?i:a|abbr|acronym|area|b|base|basefont|bdo|big|br|button|caption|cite|code|col|colgroup|del|dfn|em|font|head|html|i|img|input|ins|isindex|kbd|label|legend|li|link|map|meta|noscript|optgroup|option|param|q|s|samp|script|select|small|span|strike|strong|style|sub|sup|table|tbody|td|textarea|tfoot|th|thead|title|tr|tt|u|var)\\b)",
-      "end": "((?: ?/)?>)",
-      "name": "meta.tag.inline.any.html",
-      "patterns": [
-        {
-          "include": "#jinja-stuff"
+            "include": "source.jinja"
         },
         {
-          "include": "#tag-stuff"
-        }
-      ],
-      "beginCaptures": {
-        "1": {
-          "name": "punctuation.definition.tag.begin.html"
-        },
-        "2": {
-          "name": "entity.name.tag.inline.any.html"
-        }
-      },
-      "endCaptures": {
-        "1": {
-          "name": "punctuation.definition.tag.end.html"
-        }
-      }
-    },
-    {
-      "begin": "(?:^\\s+)?(<)((?i:script))\\b(?![^>]*/>)(?!.*type=[\"']text/template['\"])",
-      "end": "(?<=</(script|SCRIPT))(>)(?:\\s*\\n)?",
-      "name": "source.js.embedded.html",
-      "patterns": [
-        {
-          "include": "#tag-stuff"
-        },
-        {
-          "begin": "(?<!</(?:script|SCRIPT))(>)",
-          "end": "(</)((?i:script))",
-          "patterns": [
-            {
-              "include": "source.jinja#comments"
-            },
-            {
-              "begin": "{{-?",
-              "captures": [
+            "begin": "(</?)((?i:address|article|blockquote|body|dd|div|dl|dt|fieldset|figcaption|figure|footer|form|frame|frameset|h1|h2|h3|h4|h5|h6|head|header|iframe|main|nav|noframes|object|ol|p|ul|applet|center|dir|hr|menu|pre)\\b)",
+            "end": "(>)",
+            "name": "meta.tag.block.any.html",
+            "patterns": [
                 {
-                  "name": "variable.entity.other.jinja.delimiter"
+                    "include": "#tag-stuff"
                 }
-              ],
-              "end": "-?}}",
-              "name": "variable.meta.scope.jinja",
-              "patterns": [
-                {
-                  "include": "source.jinja#expression"
-                }
-              ]
-            },
-            {
-              "match": "(//).*?((?=</script)|$\\n?)",
-              "name": "comment.line.double-slash.js",
-              "captures": {
+            ],
+            "beginCaptures": {
                 "1": {
-                  "name": "punctuation.definition.comment.js"
+                    "name": "punctuation.definition.tag.begin.html"
+                },
+                "2": {
+                    "name": "entity.name.tag.block.any.html"
                 }
-              }
             },
-            {
-              "begin": "/\\*",
-              "end": "\\*/|(?=</script)",
-              "name": "comment.block.js",
-              "captures": {
+            "endCaptures": {
+                "1": {
+                    "name": "punctuation.definition.tag.end.html"
+                }
+            }
+        },
+        {
+            "begin": "(</?)((?i:a|abbr|acronym|area|b|base|basefont|bdo|big|br|button|caption|cite|code|col|colgroup|del|dfn|em|font|head|html|i|img|input|ins|isindex|kbd|label|legend|li|link|map|meta|noscript|optgroup|option|param|q|s|samp|script|select|small|span|strike|strong|style|sub|sup|table|tbody|td|textarea|tfoot|th|thead|title|tr|tt|u|var)\\b)",
+            "end": "((?: ?/)?>)",
+            "name": "meta.tag.inline.any.html",
+            "patterns": [
+                {
+                    "include": "#jinja-stuff"
+                },
+                {
+                    "include": "#tag-stuff"
+                }
+            ],
+            "beginCaptures": {
+                "1": {
+                    "name": "punctuation.definition.tag.begin.html"
+                },
+                "2": {
+                    "name": "entity.name.tag.inline.any.html"
+                }
+            },
+            "endCaptures": {
+                "1": {
+                    "name": "punctuation.definition.tag.end.html"
+                }
+            }
+        },
+        {
+            "begin": "(?:^\\s+)?(<)((?i:script))\\b(?![^>]*/>)(?!.*type=[\"']text/template['\"])",
+            "end": "(?<=</(script|SCRIPT))(>)(?:\\s*\\n)?",
+            "name": "source.js.embedded.html",
+            "patterns": [
+                {
+                    "include": "#tag-stuff"
+                },
+                {
+                    "begin": "(?<!</(?:script|SCRIPT))(>)",
+                    "end": "(</)((?i:script))",
+                    "patterns": [
+                        {
+                            "include": "source.jinja#comments"
+                        },
+                        {
+                            "begin": "{{-?",
+                            "captures": [
+                                {
+                                    "name": "variable.entity.other.jinja.delimiter"
+                                }
+                            ],
+                            "end": "-?}}",
+                            "name": "variable.meta.scope.jinja",
+                            "patterns": [
+                                {
+                                    "include": "source.jinja#output_filter"
+                                },
+                                {
+                                    "include": "source.jinja#expression"
+                                }
+                            ]
+                        },
+                        {
+                            "match": "(//).*?((?=</script)|$\\n?)",
+                            "name": "comment.line.double-slash.js",
+                            "captures": {
+                                "1": {
+                                    "name": "punctuation.definition.comment.js"
+                                }
+                            }
+                        },
+                        {
+                            "begin": "/\\*",
+                            "end": "\\*/|(?=</script)",
+                            "name": "comment.block.js",
+                            "captures": {
+                                "0": {
+                                    "name": "punctuation.definition.comment.js"
+                                }
+                            }
+                        },
+                        {
+                            "include": "source.js"
+                        }
+                    ],
+                    "captures": {
+                        "1": {
+                            "name": "punctuation.definition.tag.end.html"
+                        },
+                        "2": {
+                            "name": "entity.name.tag.script.html"
+                        }
+                    }
+                }
+            ],
+            "beginCaptures": {
+                "1": {
+                    "name": "punctuation.definition.tag.begin.html"
+                },
+                "2": {
+                    "name": "entity.name.tag.script.html"
+                }
+            },
+            "endCaptures": {
+                "2": {
+                    "name": "punctuation.definition.tag.html"
+                }
+            }
+        },
+        {
+            "include": "text.html.basic"
+        }
+    ],
+    "repository": {
+        "tag-generic-attribute": {
+            "match": "\\b([a-zA-Z\\-:_@]+)",
+            "name": "entity.other.attribute-name.html"
+        },
+        "string-double-quoted": {
+            "begin": "\"",
+            "end": "\"",
+            "name": "string.quoted.double.html",
+            "patterns": [
+                {
+                    "include": "#jinja-stuff"
+                }
+            ],
+            "beginCaptures": {
                 "0": {
-                  "name": "punctuation.definition.comment.js"
+                    "name": "punctuation.definition.string.begin.html"
                 }
-              }
             },
-            {
-              "include": "source.js"
+            "endCaptures": {
+                "0": {
+                    "name": "punctuation.definition.string.end.html"
+                }
             }
-          ],
-          "captures": {
-            "1": {
-              "name": "punctuation.definition.tag.end.html"
+        },
+        "string-single-quoted": {
+            "begin": "'",
+            "end": "'",
+            "name": "string.quoted.single.html",
+            "patterns": [
+                {
+                    "include": "#jinja-stuff"
+                }
+            ],
+            "beginCaptures": {
+                "0": {
+                    "name": "punctuation.definition.string.begin.html"
+                }
             },
-            "2": {
-              "name": "entity.name.tag.script.html"
+            "endCaptures": {
+                "0": {
+                    "name": "punctuation.definition.string.end.html"
+                }
             }
-          }
-        }
-      ],
-      "beginCaptures": {
-        "1": {
-          "name": "punctuation.definition.tag.begin.html"
         },
-        "2": {
-          "name": "entity.name.tag.script.html"
+        "tag-stuff": {
+            "patterns": [
+                {
+                    "include": "#tag-generic-attribute"
+                },
+                {
+                    "include": "#string-double-quoted"
+                },
+                {
+                    "include": "#string-single-quoted"
+                }
+            ]
+        },
+        "jinja-stuff": {
+            "patterns": [
+                {
+                    "begin": "{{-?",
+                    "captures": [
+                        {
+                            "name": "variable.entity.other.jinja.delimiter"
+                        }
+                    ],
+                    "end": "-?}}",
+                    "name": "variable.meta.scope.jinja",
+                    "patterns": [
+                        {
+                            "include": "source.jinja#output_filter"
+                        },
+                        {
+                            "include": "source.jinja#expression"
+                        }
+                    ]
+                }
+            ]
         }
-      },
-      "endCaptures": {
-        "2": {
-          "name": "punctuation.definition.tag.html"
-        }
-      }
-    },
-    {
-      "include": "text.html.basic"
     }
-  ],
-  "repository": {
-    "tag-generic-attribute": {
-      "match": "\\b([a-zA-Z\\-:_@]+)",
-      "name": "entity.other.attribute-name.html"
-    },
-    "string-double-quoted": {
-      "begin": "\"",
-      "end": "\"",
-      "name": "string.quoted.double.html",
-      "patterns": [
-        {
-          "include": "#jinja-stuff"
-        }
-      ],
-      "beginCaptures": {
-        "0": {
-          "name": "punctuation.definition.string.begin.html"
-        }
-      },
-      "endCaptures": {
-        "0": {
-          "name": "punctuation.definition.string.end.html"
-        }
-      }
-    },
-    "string-single-quoted": {
-      "begin": "'",
-      "end": "'",
-      "name": "string.quoted.single.html",
-      "patterns": [
-        {
-          "include": "#jinja-stuff"
-        }
-      ],
-      "beginCaptures": {
-        "0": {
-          "name": "punctuation.definition.string.begin.html"
-        }
-      },
-      "endCaptures": {
-        "0": {
-          "name": "punctuation.definition.string.end.html"
-        }
-      }
-    },
-    "tag-stuff": {
-      "patterns": [
-        {
-          "include": "#tag-generic-attribute"
-        },
-        {
-          "include": "#string-double-quoted"
-        },
-        {
-          "include": "#string-single-quoted"
-        }
-      ]
-    },
-    "jinja-stuff": {
-      "patterns": [
-        {
-          "begin": "{{-?",
-          "captures": [
-            {
-              "name": "variable.entity.other.jinja.delimiter"
-            }
-          ],
-          "end": "-?}}",
-          "name": "variable.meta.scope.jinja",
-          "patterns": [
-            {
-              "include": "source.jinja#expression"
-            }
-          ]
-        }
-      ]
-    }
-  }
 }
