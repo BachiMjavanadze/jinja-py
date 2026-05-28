@@ -4,12 +4,14 @@ const { formatter } = require('./formatting/formatterProvider');
 const { foldingProvider } = require('./folding/foldingProvider');
 const { completionProvider } = require('./completion/completionProvider');
 const snippets = require('./completion/snippets');
+const jinjaExpand = require('./typing/jinja-expand');
 
 async function activate(context) {
     const htmlExtension = vscode.extensions.getExtension('vscode.html-language-features');
     if (htmlExtension) await htmlExtension.activate();
 
     snippets.init(context.extensionPath);
+    jinjaExpand.register(context);
 
     context.subscriptions.push(
         vscode.languages.registerDocumentFormattingEditProvider('html', formatter),

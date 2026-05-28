@@ -4,6 +4,7 @@
 
 - Formatter now normalizes whitespace inside Jinja delimiters: exactly one space after `{{` / `{%` / `{#` and before `}}` / `%}` / `#}`, preserving `-` trim markers and the literal content of `{% raw %}` blocks.
 - Added snippets for common Jinja blocks and statements, namespaced under the `j.` prefix, in `html`, `jinja-html`, and `jinja` files.
+- Typing `%` between `{` and `}` auto-expands to `{% | %}` with the cursor in the middle.
 
 ## [1.2.1] - 2026-05-28
 
