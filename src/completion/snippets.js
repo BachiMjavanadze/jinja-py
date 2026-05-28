@@ -48,6 +48,7 @@ function init(extensionPath) {
 }
 
 function snippetCompletions(linePrefix, position) {
+    if (!vscode.workspace.getConfiguration('jinjaPy').get('jinjaSnippets', true)) return [];
     const m = linePrefix.match(TRIGGER_RE);
     if (!m) return [];
     const token = m[1];

@@ -1,5 +1,9 @@
 # Change Log
 
+## [1.3.1] - 2026-05-28
+
+- Added the `jinjaPy.jinjaSnippets` setting (default `true`) to toggle the built-in `j.` snippets on or off.
+
 ## [1.3.0] - 2026-05-28
 
 - Formatter now normalizes whitespace inside Jinja delimiters: exactly one space after `{{` / `{%` / `{#` and before `}}` / `%}` / `#}`, preserving `-` trim markers and the literal content of `{% raw %}` blocks.

@@ -73,6 +73,14 @@ The extension ships snippets for common Jinja blocks and statements, namespaced 
 
 Some snippets are taken from [Jinja Snippets Flask](https://marketplace.visualstudio.com/items?itemName=WaseemAkram.jinja-snippets-flask), but the trigger works differently: the `j.` prefix is required, so the list only appears after you type the dot, not on a bare letter.
 
+To use your own snippets instead, disable the built-ins:
+
+```json
+"jinjaPy": {
+    "jinjaSnippets": false
+}
+```
+
 ## Breakpoints Support
 
 To debug templates, add the `"jinja": true` option to your target configuration in the `launch.json` file.
