@@ -59,13 +59,11 @@ The `properties.framework` setting controls which web framework's built-in templ
 | `fastapi` | Starlette `url_for`, `request`, and `request` attribute chains |
 | `none` | Pure Jinja built-ins only |
 
-This is **not** type-aware autocomplete like in a statically typed language. The extension does not read your Python code, does not know your actual framework, and does not validate anything. It simply offers a fixed list of names that the selected framework is known to inject. The setting only chooses which list to show.
-
-So the selected framework must match your project. If you set `framework` to `django` inside a Flask project, you will get Django globals, attributes, and methods — with no warning — and using them will fail at render time. Picking the wrong framework gives you the wrong names, silently.
-
 Callable names (`url_for`, `csrf_token`, `gettext`, `static`, `url`, ...) insert with parentheses and the cursor placed inside.
 
 Attribute completions are offered only for the framework's known objects (e.g. `request.args.`, `current_user.`). User-defined variables and the results of function calls receive no attribute suggestions.
+
+**Note**: This is **not** type-aware autocomplete like in a statically typed language. The extension does not read your Python code, does not know your actual framework, and does not validate anything. It simply offers a fixed list of names that the selected framework is known to inject. The setting only chooses which list to show. So the selected framework must match your project. If you set `framework` to `django` inside a Flask project, you will get Django globals, attributes, and methods — with no warning — and using them will fail at render time. Picking the wrong framework gives you the wrong names, silently.
 
 ## Snippets
 
