@@ -6,7 +6,7 @@
     "publisher": "BachiMjavanadze",
     "author": "Bachi Mjavanadze",
     "engines": {
-        "vscode": "^1.120.0"
+        "vscode": "^1.109.0"
     },
     "activationEvents": [
         "onLanguage:html",
