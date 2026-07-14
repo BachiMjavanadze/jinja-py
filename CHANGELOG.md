@@ -1,5 +1,9 @@
 # Change Log
 
+## [1.3.2] - 2026-07-14
+
+- Lowered the minimum supported `VS Code` version from `1.120.0` to `1.109.0`.
+
 ## [1.3.1] - 2026-05-28
 
 - Added the `jinjaPy.jinjaSnippets` setting (default `true`) to toggle the built-in `j.` snippets on or off.

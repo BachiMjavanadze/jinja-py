@@ -2,11 +2,11 @@
     "name": "jinja-py",
     "displayName": "Jinja Py",
     "description": "Jinja2 syntax highlighting, formatting, folding, autocomplete and breakpoint support for HTML templates",
-    "version": "1.3.2",
+    "version": "1.3.3",
     "publisher": "BachiMjavanadze",
     "author": "Bachi Mjavanadze",
     "engines": {
-        "vscode": "^1.120.0"
+        "vscode": "^1.109.0"
     },
     "activationEvents": [
         "onLanguage:html",
